@@ -237,13 +237,13 @@ open the file `package.json` and modify the package name, e.g. into
 If you don't have jupyterlab open, start it with `jupyter lab --watch`. In this
 extension, we are going to add a command to the application command registry
 and expose it to the user in the command palette.
-The command palette can be seen when clicking on _Commands` on the left hand
+The command palette can be seen when clicking on `Commands` on the left hand
 side of Jupyterlab. The command palette can be seen as a list of actions that
 can be executed by jupyterlab. (see screenshot below).
 
 ![Jupyter Command Registry](images/command_registry.png)
 
-Often, extension provide some new functions to jupyterlab to the
+Often, extensions provide some new functions to jupyterlab to the
 applications command registry and then expose them to the user through the
 command palette or through a menu item.
 
@@ -392,7 +392,7 @@ to rebuild the application. A refresh of the jupyterlab website should now show:
 ```
 ]
 
-[Click here for the final extension1](extension2)
+[Click here for the final extension2](extension2)
 
 
 ## Extension 3: Adding Widgets ##
@@ -416,7 +416,7 @@ a Widget can be added to the main area through the `shell` that can be accessed
 as a property of the `app` variable that represents the main jupyterlab
 application. Inside of our previous activate function, this looks like this:
 
-```
+```typescript
     activate: (
         app: JupyterLab,
         palette: ICommandPalette,
@@ -441,7 +441,7 @@ application. Inside of our previous activate function, this looks like this:
     }
 ```
 
-Defining the custom widget `TutorialView`) is straight-forward as well:
+Defining the custom widget `TutorialView` is straight-forward as well:
 
 ```typescript
 class TutorialView extends Widget {
@@ -550,7 +550,7 @@ look at their definition in the phosphor.js source code:
   type CellRegion = 'body' | 'row-header' | 'column-header' | 'corner-header';
 ```
 
-The meaning of these lines might be obvious for experienced users of typescript
+The meaning of these lines might be obvious for experienced users of Typescript
 or Haskell. The `|` can be read as or, so the `RowRegion` type is either `body`
 or `column-header`. This explains what the `rowCount` and `columnCount`
 functions do: They define a table with `2` header rows, with 3 index columns,
@@ -589,7 +589,7 @@ Let's see how this looks like in Jupyterlab:
 
 In this extension, we are going to add some simple buttons to the widget that
 trigger the panel to print something to the console. Communication between
-different components of jupyterlab are a key ingredient in building an
+different components of Jupyterlab are a key ingredient in building an
 extension. Jupyterlab's phosphor engine uses the `ISignal` interface and the
 `Signal` class that implements this interface for communication
 ([documentation](http://phosphorjs.github.io/phosphor/api/signaling/globals.html)).
@@ -781,7 +781,7 @@ conceptualy important for building extensions. It looks like this:
 
 ## Extension 6: Kernel Interactions ##
 
-One of the main features of jupyterlab is the possibility to manage and
+One of the main features of Jupyterlab is the possibility to manage and
 interact underlying compute kernels. In this section, we explore how to
 start a kernel and execute a simple command on it.
 
@@ -811,7 +811,7 @@ Jupyterlab provides a class `ClientSession`
 that manages a single kernel session. Here are the lines that we need to start
 a kernel with it:
 
-```
+```typescript
         this._session = new ClientSession({
             manager: manager.sessions,
             path,
@@ -820,8 +820,8 @@ a kernel with it:
         this._session.initialize();
 ```
 
-well, that's short, isn't it? We have already seen the `manager` class that is
-provided directly by the main jupyterlab application. `path` is a link to the
+Well, that's short, isn't it? We have already seen the `manager` class that is
+provided directly by the main Jupyterlab application. `path` is a link to the
 path under which the console is opened (?).
 
 With these lines, we can extend the panel widget from extension5 to intialize a
@@ -831,7 +831,7 @@ overwrite the `dispose` and `onCloseRequest` methods of the `StackedPanel`
 to free the kernel session resources if the panel is closed. The whole adapted
 panel class looks like this:
 
-```
+```typescript
 export
 class TutorialPanel extends StackedPanel {
     constructor(manager: ServiceManager.IManager) {
@@ -881,7 +881,7 @@ class TutorialPanel extends StackedPanel {
 Once a kernel is initialized and ready, code can be executed on it through
 the `ClientSession` class with the following snippet:
 
-```
+```typescript
         this.future = this._session.kernel.requestExecute({ code });
 ```
 
@@ -898,7 +898,7 @@ emit a `stateChanged` signal. As we have explained above, our `KernelModel` is
 a `VDomModel` that provides this  `stateChanged` signal that can be used by a
 `VDomRendered`.  It is implemented as follows:
 
-```
+```typescript
 export
 class KernelModel extends VDomModel {
     constructor(session: IClientSession) {
@@ -953,7 +953,7 @@ to `this.model` in the constructor.  We can then connect a button to
 `this.model.execute` and a text field to `this.model.output` and our extension
 is ready:
 
-```
+```typescript
 export
 class KernelView extends VDomRenderer<any> {
     constructor(model: KernelModel) {
@@ -992,14 +992,14 @@ components to make things look nicer...
 ## Extension 7: Rendering a dataframe from a notebook with the `OutputArea` class ##
 
 In this extension we will see how we can do the same as in the previous
-extension using the `OutputArea` class that jupyterlab provides. Essentially,
+extension using the `OutputArea` class that Jupyterlab provides. Essentially,
 `OutputArea` will render the data that came as a reply to an execute message in
 the same way as in the notebook. Under the hood, the `OutputArea` and the
 `OutputAreaModel` classes act similar to the `KernelView` and `KernelModel`
 classes that we have defined ourselves before. We therefore get rid of the
 `model.ts` and `widget.tsx` files and change the panel class to:
 
-```
+```typescript
 export
 class TutorialPanel extends StackedPanel {
     constructor(manager: ServiceManager.IManager, rendermime: RenderMimeRegistry) {
@@ -1052,17 +1052,17 @@ Using the `OutputArea` class, the extension looks like this:
 
 ## Extension8: Using IPyWidgets ##
 
-A lot of advanced functionality in jupyter lab notebooks come in the form of
-ipython widgets (or jupyter widgets). Such widgets have one representation in
-the kernel and one representation in the jupyterlab javascript code. They can
+A lot of advanced functionality in JupyterLab notebooks come in the form of
+ipython widgets (or Jupyter widgets). Such widgets have one representation in
+the kernel and one representation in the Jupyterlab javascript code. They can
 for example be used to interactively examine very large datasets in the kernel
 without a full copy in the frontend. Many other widgets are available and can
 give an app-like feeling to a jupyter notebook. These widgets are therefore
-ideal to build an interactive jupyterlab extension.
+ideal to build an interactive Jupyterlab extension.
 
 As an example, we show in this extension how the ipywidget `qgrid` can be
-integrated into jupyterlab. As a first step, install `ipywidgets` and 
-`grid`.
+integrated into Jupyterlab. As a first step, install `ipywidgets` and
+`qgrid`.
 
 (These are the commands for a conda installation:
 ```
@@ -1076,7 +1076,7 @@ jupyter labextension install qgrid
 Before continuing, test if you can (a) open a notebook, and (b) see a table
 when executing these commands in a cell:
 
-```
+```python
 import pandas as pd
 import numpy as np
 import qgrid
@@ -1126,7 +1126,7 @@ class NBWidgetExtension implements INBWidgetExtension {
 }
 ```
 
-the `createNew` method of `NBWidgetExtension` takes a `NotebookPanel` as input
+The `createNew` method of `NBWidgetExtension` takes a `NotebookPanel` as input
 argument and then adds a custom mime renderer with the command
 `nb.rendermime.addFactory` to it. The widget renderer (or rather RenderFactory)
 is linked to the `WidgetManager` is going to store the underlying data of the
@@ -1137,7 +1137,7 @@ open notebook if we want to use it without changing the widget source code.
 To access the current notebook, we can use the `INotebookTracker` in
 the plugin's activate function:
 
-```
+```typescript
 const extension: JupyterLabPlugin<void> = {
     id: 'extension8',
     autoStart: true,
@@ -1159,7 +1159,7 @@ function activate(
 We then pass the rendermime of the notebook (the one that has the IPyWidget
 Renderer added) to our panel:
 
-```
+```typescript
     function createPanel() {
         let current = tracker.currentWidget;
         console.log(current.rendermime);
@@ -1177,7 +1177,7 @@ Renderer added) to our panel:
 and add a command to the registry that executes the code `widget` that displays
 the variable `widget` in which we are going to store the qgrid widget:
 
-```
+```typescript
     let code = 'widget'
     command = CommandIDs.execute
     commands.addCommand(command, {
@@ -1189,7 +1189,8 @@ the variable `widget` in which we are going to store the qgrid widget:
 To finally render the Output we have to allow the `OutputAreaModel` to use
 non-default mime types, which can be done like this:
 
-```
+```typescript
+
         this._outputareamodel = new OutputAreaModel({ trusted: true });
 ```
 
