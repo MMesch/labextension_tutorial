@@ -1,6 +1,6 @@
-# extension1
+# Extension 2
 
-minimal lab example
+Adding Commands, modifying Menus
 
 
 ## Prerequisites

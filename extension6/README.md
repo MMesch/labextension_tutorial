@@ -1,6 +1,6 @@
-# extension1
+# Extension 6
 
-minimal lab example
+Kernel Interactions
 
 
 ## Prerequisites

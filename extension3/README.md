@@ -1,6 +1,6 @@
-# extension1
+# Extension 3
 
-minimal lab example
+Adding Widgets
 
 
 ## Prerequisites

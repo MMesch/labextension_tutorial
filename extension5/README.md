@@ -1,6 +1,6 @@
-# extension1
+# Extension 5
 
-minimal lab example
+Buttons and Signals
 
 
 ## Prerequisites

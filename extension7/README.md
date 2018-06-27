@@ -1,6 +1,6 @@
-# extension1
+# Extension 7
 
-minimal lab example
+Rendering a dataframe from a notebook with the `OutputArea` class
 
 
 ## Prerequisites

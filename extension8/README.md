@@ -1,6 +1,6 @@
-# extension1
+# Extension 8
 
-minimal lab example
+Using IPyWidgets
 
 
 ## Prerequisites

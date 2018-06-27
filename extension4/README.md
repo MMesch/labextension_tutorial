@@ -1,6 +1,6 @@
-# extension1
+# Extension 4
 
-minimal lab example
+A simple datagrid
 
 
 ## Prerequisites

@@ -1,6 +1,6 @@
-# extension1
+# Extension 1
 
-minimal lab example
+A minimal extension that prints to the browser console
 
 
 ## Prerequisites
