@@ -1,5 +1,12 @@
 # Jupyterlab Extensions Walkthrough #
 
+**Development is now happening in https://github.com/jtpio/jupyterlab-extension-examples with the following roadmap**:
+
+- Update to JupyterLab 1.0
+- Update existing examples
+- Add more examples
+- Move the repo to https://github.com/jupyterlab when ready
+
 ## Other tutorials ##
 * http://JupyterLab.readthedocs.io/en/stable/developer/xkcd_extension_tutorial.html
 
